@@ -1,6 +1,7 @@
 import React from "react";
 import { Search } from "../Search/Search";
 import styles from "./Table.module.css";
+import ReactPaginate from "react-paginate";
 
 const PAGE_SIZE = 50;
 
@@ -27,7 +28,7 @@ export const Table = () => {
           body,
         }));
         let slice = preparedItems.slice(offset, offset + PAGE_SIZE);
-        setItems(slice);
+        setItems(preparedItems);
         setSortedItems(slice);
         setIsLoaded(true);
       } catch (error) {
@@ -65,10 +66,21 @@ export const Table = () => {
     });
     setSortedItems(filteredItems);
   };
-
   const itemsLength = items.length;
   const pagesCount = Math.ceil(itemsLength / PAGE_SIZE);
   const arr = new Array(pagesCount);
+
+  const loadMoreData = () => {
+    let slice = items.slice(offset, offset + PAGE_SIZE);
+    setSortedItems(slice);
+  };
+  const handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    const offset = selectedPage * PAGE_SIZE;
+    setCurrentPage(selectedPage);
+    setOffset(offset);
+    loadMoreData();
+  };
 
   if (error) {
     return <p>Error {error.message} </p>;
@@ -108,6 +120,19 @@ export const Table = () => {
               })}
             </tbody>
           </table>
+          <ReactPaginate
+            previousLabel={"prev"}
+            nextLabel={"next"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            pageCount={pagesCount}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}
+          />
         </div>
       </div>
     );
