@@ -1,5 +1,4 @@
 import React from "react";
-import { Comments } from "../Comments/Comments";
 import { Pagination } from "../Pagination/Pagination";
 import { Search } from "../Search/Search";
 import styles from "./Table.module.css";
@@ -11,7 +10,7 @@ export const Table = () => {
   const [sortedItems, setSortedItems] = React.useState([]);
   const [isSorted, setIsSorted] = React.useState(true);
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [perPage] = React.useState(50);
+  const [perPage, setPerPage] = React.useState(10);
 
   React.useEffect(() => {
     (async () => {
@@ -28,7 +27,7 @@ export const Table = () => {
         }));
 
         setComments(preparedItems);
-        setSortedItems(preparedItems.slice(0, 50));
+        setSortedItems(preparedItems.slice(0, perPage));
         setIsLoaded(true);
       } catch (error) {
         setIsLoaded(true);
@@ -45,7 +44,7 @@ export const Table = () => {
 
   React.useEffect(() => {
     setSortedItems(currentComments);
-  }, [currentPage]);
+  }, [currentPage, perPage]);
 
   const handleClickSort = (event) => {
     const field = event.target.dataset.field;
@@ -75,6 +74,10 @@ export const Table = () => {
     });
     setSortedItems(filteredItems);
   };
+  const handleChangePerPage = (event) => {
+    console.log(event);
+    setPerPage(event.target.value);
+  };
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -94,7 +97,10 @@ export const Table = () => {
     return (
       <div className={styles.main}>
         <div className={styles.container}>
-          <Search onChange={handleSearch} />
+          <Search
+            onChangePerPage={handleChangePerPage}
+            onChange={handleSearch}
+          />
           <table>
             <thead>
               <th data-field="id" onClick={handleClickSort}>

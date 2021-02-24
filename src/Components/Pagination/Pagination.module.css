@@ -1,9 +1,17 @@
 .pagination {
   display: flex;
   list-style: none;
+  flex-wrap: wrap;
 }
 .pageItems {
-  margin: 5px;
+  cursor: pointer;
+  padding: 0 10px;
+  border: 1px solid rgb(160, 212, 224);
+  background: white;
+  transition: all 0.5s ease;
+}
+.pageItems:hover {
+  background: rgba(0, 0, 0, 0.233);
 }
 
 .pageLink {

@@ -1,3 +1,8 @@
-input {
-  width: 100%;
+.searchBar {
+  width: 40%;
+  line-height: 28px;
+  margin: 15px 0;
+}
+label {
+  margin: 0 5px;
 }
