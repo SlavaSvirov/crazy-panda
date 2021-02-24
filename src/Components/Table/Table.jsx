@@ -36,21 +36,21 @@ export const Table = () => {
       }
     })();
   }, []);
+  const indexOfLastComment = currentPage * perPage;
+  const indexOfFirstComment = indexOfLastComment - perPage;
+  const currentComments = comments.slice(
+    indexOfFirstComment,
+    indexOfLastComment
+  );
 
   React.useEffect(() => {
-    const indexOfLastComment = currentPage * perPage;
-    const indexOfFirstComment = indexOfLastComment - perPage;
-    const currentComments = comments.slice(
-      indexOfFirstComment,
-      indexOfLastComment
-    );
     setSortedItems(currentComments);
   }, [currentPage]);
 
   const handleClickSort = (event) => {
     const field = event.target.dataset.field;
     let direction = isSorted ? -1 : 1;
-    const sortedElements = comments.sort((a, b) => {
+    const sortedElements = currentComments.sort((a, b) => {
       if (a[field] === b[field]) return 0;
       return a[field] > b[field] ? direction : -direction;
     });
@@ -61,7 +61,7 @@ export const Table = () => {
 
   const handleSearch = (e) => {
     const value = e.target.value.toString();
-    const filteredItems = comments.filter((item) => {
+    const filteredItems = currentComments.filter((item) => {
       const test = Object.keys(item).some((field) => {
         if (item[field] !== Object(item[field])) {
           const result =
