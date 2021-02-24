@@ -12,12 +12,12 @@ export const Pagination = ({ perPage, totalComments, paginate }) => {
       <ul className={styles.pagination}>
         {pageNumbers.map((number) => {
           return (
-            <li key={number} className={styles.pageItems}>
-              <a
-                onClick={() => paginate(number)}
-                href="!#"
-                className={styles.pageLink}
-              >
+            <li
+              key={number}
+              onClick={() => paginate(number)}
+              className={styles.pageItems}
+            >
+              <a href="!#" className={styles.pageLink}>
                 {number}
               </a>
             </li>

@@ -7,7 +7,7 @@ export const Table = () => {
   const [error, setError] = React.useState(null);
   const [comments, setComments] = React.useState([]);
   const [isLoaded, setIsLoaded] = React.useState(false);
-  const [sortedItems, setSortedItems] = React.useState([]);
+  const [sortedComments, setSortedComments] = React.useState([]);
   const [isSorted, setIsSorted] = React.useState(true);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [perPage, setPerPage] = React.useState(10);
@@ -27,7 +27,7 @@ export const Table = () => {
         }));
 
         setComments(preparedItems);
-        setSortedItems(preparedItems.slice(0, perPage));
+        setSortedComments(preparedItems.slice(0, perPage));
         setIsLoaded(true);
       } catch (error) {
         setIsLoaded(true);
@@ -35,6 +35,7 @@ export const Table = () => {
       }
     })();
   }, []);
+
   const indexOfLastComment = currentPage * perPage;
   const indexOfFirstComment = indexOfLastComment - perPage;
   const currentComments = comments.slice(
@@ -43,18 +44,18 @@ export const Table = () => {
   );
 
   React.useEffect(() => {
-    setSortedItems(currentComments);
+    setSortedComments(currentComments);
   }, [currentPage, perPage]);
 
-  const handleClickSort = (event) => {
-    const field = event.target.dataset.field;
+  const handleClickSort = (e) => {
+    const field = e.target.dataset.field;
     let direction = isSorted ? -1 : 1;
     const sortedElements = currentComments.sort((a, b) => {
       if (a[field] === b[field]) return 0;
       return a[field] > b[field] ? direction : -direction;
     });
 
-    setSortedItems([...sortedElements]);
+    setSortedComments([...sortedElements]);
     setIsSorted(!isSorted);
   };
 
@@ -72,11 +73,10 @@ export const Table = () => {
       });
       return test;
     });
-    setSortedItems(filteredItems);
+    setSortedComments(filteredItems);
   };
-  const handleChangePerPage = (event) => {
-    console.log(event);
-    setPerPage(event.target.value);
+  const handleChangePerPage = (e) => {
+    setPerPage(e.target.value);
   };
 
   const paginate = (pageNumber) => {
@@ -117,7 +117,7 @@ export const Table = () => {
               </th>
             </thead>
             <tbody>
-              {sortedItems.map((el) => {
+              {sortedComments.map((el) => {
                 return (
                   <tr className={styles.row}>
                     <td className="id">{el.id}</td>
