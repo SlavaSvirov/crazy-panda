@@ -77,6 +77,7 @@ export const Table = () => {
   };
   const handleChangePerPage = (e) => {
     setPerPage(e.target.value);
+    setCurrentPage(1);
   };
 
   const paginate = (pageNumber) => {
