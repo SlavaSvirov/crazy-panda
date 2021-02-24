@@ -26,15 +26,9 @@ export const Table = () => {
           email,
           body,
         }));
-        const indexOfLastComment = currentPage * perPage;
-        const indexOfFirstComment = indexOfLastComment - perPage;
-        const currentComments = preparedItems.slice(
-          indexOfFirstComment,
-          indexOfLastComment
-        );
 
         setComments(preparedItems);
-        setSortedItems(currentComments);
+        setSortedItems(preparedItems.slice(0, 50));
         setIsLoaded(true);
       } catch (error) {
         setIsLoaded(true);
@@ -42,6 +36,16 @@ export const Table = () => {
       }
     })();
   }, []);
+
+  React.useEffect(() => {
+    const indexOfLastComment = currentPage * perPage;
+    const indexOfFirstComment = indexOfLastComment - perPage;
+    const currentComments = comments.slice(
+      indexOfFirstComment,
+      indexOfLastComment
+    );
+    setSortedItems(currentComments);
+  }, [currentPage]);
 
   const handleClickSort = (event) => {
     const field = event.target.dataset.field;
