@@ -1,18 +1,17 @@
 import React from "react";
+import { Comments } from "../Comments/Comments";
+import { Pagination } from "../Pagination/Pagination";
 import { Search } from "../Search/Search";
 import styles from "./Table.module.css";
-import ReactPaginate from "react-paginate";
-
-const PAGE_SIZE = 50;
 
 export const Table = () => {
   const [error, setError] = React.useState(null);
-  const [items, setItems] = React.useState([]);
+  const [comments, setComments] = React.useState([]);
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [sortedItems, setSortedItems] = React.useState([]);
   const [isSorted, setIsSorted] = React.useState(true);
-  const [offset, setOffset] = React.useState(0);
-  const [currentPage, setCurrentPage] = React.useState(0);
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [perPage] = React.useState(50);
 
   React.useEffect(() => {
     (async () => {
@@ -27,9 +26,15 @@ export const Table = () => {
           email,
           body,
         }));
-        let slice = preparedItems.slice(offset, offset + PAGE_SIZE);
-        setItems(preparedItems);
-        setSortedItems(slice);
+        const indexOfLastComment = currentPage * perPage;
+        const indexOfFirstComment = indexOfLastComment - perPage;
+        const currentComments = preparedItems.slice(
+          indexOfFirstComment,
+          indexOfLastComment
+        );
+
+        setComments(preparedItems);
+        setSortedItems(currentComments);
         setIsLoaded(true);
       } catch (error) {
         setIsLoaded(true);
@@ -41,7 +46,7 @@ export const Table = () => {
   const handleClickSort = (event) => {
     const field = event.target.dataset.field;
     let direction = isSorted ? -1 : 1;
-    const sortedElements = items.sort((a, b) => {
+    const sortedElements = comments.sort((a, b) => {
       if (a[field] === b[field]) return 0;
       return a[field] > b[field] ? direction : -direction;
     });
@@ -52,7 +57,7 @@ export const Table = () => {
 
   const handleSearch = (e) => {
     const value = e.target.value.toString();
-    const filteredItems = items.filter((item) => {
+    const filteredItems = comments.filter((item) => {
       const test = Object.keys(item).some((field) => {
         if (item[field] !== Object(item[field])) {
           const result =
@@ -66,21 +71,16 @@ export const Table = () => {
     });
     setSortedItems(filteredItems);
   };
-  const itemsLength = items.length;
-  const pagesCount = Math.ceil(itemsLength / PAGE_SIZE);
-  const arr = new Array(pagesCount);
 
-  const loadMoreData = () => {
-    let slice = items.slice(offset, offset + PAGE_SIZE);
-    setSortedItems(slice);
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
-  const handlePageClick = (e) => {
-    const selectedPage = e.selected;
-    const offset = selectedPage * PAGE_SIZE;
-    setCurrentPage(selectedPage);
-    setOffset(offset);
-    loadMoreData();
-  };
+
+  // setSortedItems(currentComments);
+
+  // const commentsLength = comments.length;
+  // const pagesCount = Math.ceil(commentsLength / perPage);
+  // const arr = new Array(pagesCount);
 
   if (error) {
     return <p>Error {error.message} </p>;
@@ -106,7 +106,6 @@ export const Table = () => {
                 E-mail
               </th>
             </thead>
-
             <tbody>
               {sortedItems.map((el) => {
                 return (
@@ -120,18 +119,10 @@ export const Table = () => {
               })}
             </tbody>
           </table>
-          <ReactPaginate
-            previousLabel={"prev"}
-            nextLabel={"next"}
-            breakLabel={"..."}
-            breakClassName={"break-me"}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            pageCount={pagesCount}
-            onPageChange={handlePageClick}
-            containerClassName={"pagination"}
-            subContainerClassName={"pages pagination"}
-            activeClassName={"active"}
+          <Pagination
+            paginate={paginate}
+            perPage={perPage}
+            totalComments={comments.length}
           />
         </div>
       </div>

@@ -1,0 +1,11 @@
+.pagination {
+  display: flex;
+  list-style: none;
+}
+.pageItems {
+  margin: 5px;
+}
+
+.pageLink {
+  text-decoration: none;
+}
