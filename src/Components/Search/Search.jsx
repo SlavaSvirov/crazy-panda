@@ -9,8 +9,8 @@ export const Search = ({ onChange, onChangePerPage }) => {
         onChange={onChange}
         type="text"
       />
-      <label htmlFor="select">Выводить на страницу по</label>
-      <select onChange={onChangePerPage} htmlFor="select">
+      <label>Выводить на страницу по</label>
+      <select onChange={onChangePerPage}>
         <option value="10">10</option>
         <option value="20">20</option>
         <option value="30">30</option>
