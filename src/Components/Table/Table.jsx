@@ -60,7 +60,7 @@ export const Table = () => {
   };
 
   const handleSearch = (e) => {
-    const value = e.target.value.toString();
+    const value = e.target.value.toString().toLowerCase();
     const filteredItems = currentComments.filter((item) => {
       const test = Object.keys(item).some((field) => {
         if (item[field] !== Object(item[field])) {
