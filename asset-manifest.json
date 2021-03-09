@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/crazy-panda/static/css/main.aff50e09.chunk.css",
-    "main.js": "/crazy-panda/static/js/main.0fa10a1d.chunk.js",
-    "main.js.map": "/crazy-panda/static/js/main.0fa10a1d.chunk.js.map",
+    "main.css": "/crazy-panda/static/css/main.b08ec9e4.chunk.css",
+    "main.js": "/crazy-panda/static/js/main.fbe947ee.chunk.js",
+    "main.js.map": "/crazy-panda/static/js/main.fbe947ee.chunk.js.map",
     "runtime-main.js": "/crazy-panda/static/js/runtime-main.c0b87543.js",
     "runtime-main.js.map": "/crazy-panda/static/js/runtime-main.c0b87543.js.map",
-    "static/js/2.f37ca5ab.chunk.js": "/crazy-panda/static/js/2.f37ca5ab.chunk.js",
-    "static/js/2.f37ca5ab.chunk.js.map": "/crazy-panda/static/js/2.f37ca5ab.chunk.js.map",
+    "static/js/2.065bf28e.chunk.js": "/crazy-panda/static/js/2.065bf28e.chunk.js",
+    "static/js/2.065bf28e.chunk.js.map": "/crazy-panda/static/js/2.065bf28e.chunk.js.map",
     "index.html": "/crazy-panda/index.html",
-    "static/css/main.aff50e09.chunk.css.map": "/crazy-panda/static/css/main.aff50e09.chunk.css.map",
-    "static/js/2.f37ca5ab.chunk.js.LICENSE.txt": "/crazy-panda/static/js/2.f37ca5ab.chunk.js.LICENSE.txt"
+    "static/css/main.b08ec9e4.chunk.css.map": "/crazy-panda/static/css/main.b08ec9e4.chunk.css.map",
+    "static/js/2.065bf28e.chunk.js.LICENSE.txt": "/crazy-panda/static/js/2.065bf28e.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.c0b87543.js",
-    "static/js/2.f37ca5ab.chunk.js",
-    "static/css/main.aff50e09.chunk.css",
-    "static/js/main.0fa10a1d.chunk.js"
+    "static/js/2.065bf28e.chunk.js",
+    "static/css/main.b08ec9e4.chunk.css",
+    "static/js/main.fbe947ee.chunk.js"
   ]
 }
