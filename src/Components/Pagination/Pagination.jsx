@@ -17,9 +17,7 @@ export const Pagination = ({ perPage, totalComments, paginate }) => {
               onClick={() => paginate(number)}
               className={styles.pageItems}
             >
-              <div href="#" className={styles.pageLink}>
-                {number}
-              </div>
+              <div>{number}</div>
             </li>
           );
         })}
